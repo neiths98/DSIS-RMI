@@ -9,7 +9,7 @@ public class Part {
   private String description;
   private Vector<SubPart> subParts;
 
-  Part(String name, String description, Vector<SubPart> subParts) {
+  public Part(String name, String description, Vector<SubPart> subParts) {
     this.id = UUID.randomUUID();
     this.name = name;
     this.description = description;
