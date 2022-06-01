@@ -9,6 +9,13 @@ public class Part {
   private String description;
   private Vector<SubPart> subParts;
 
+  public Part(String name, String description) {
+    this.id = UUID.randomUUID();
+    this.name = name;
+    this.description = description;
+    this.subParts = new Vector<SubPart>();
+  }
+
   public Part(String name, String description, Vector<SubPart> subParts) {
     this.id = UUID.randomUUID();
     this.name = name;
