@@ -26,4 +26,8 @@ public class Server {
   public PartRepository getPartRepository() {
     return this.partRepository;
   }
+
+  public void listRepositoryParts() {
+    this.partRepository.listParts();
+  }
 }
