@@ -2,6 +2,7 @@ package server;
 
 import java.util.UUID;
 
+import parts.Part;
 import parts.PartRepository;
 
 public class Server {
@@ -25,6 +26,14 @@ public class Server {
 
   public PartRepository getPartRepository() {
     return this.partRepository;
+  }
+
+  public boolean addPartToRepository(Part newPart) {
+    return this.partRepository.addPart(newPart);
+  }
+
+  public boolean removePartFromRepository(UUID partId) {
+    return this.partRepository.removePart(partId);
   }
 
   public void listRepositoryParts() {

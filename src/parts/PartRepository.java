@@ -26,8 +26,25 @@ public class PartRepository {
     return this.parts;
   }
 
+  private Part getPartById(UUID partId) {
+    for (Part p : this.parts) {
+      UUID pId = p.getId();
+      if (pId == partId)
+        return p;
+    }
+    return null;
+  }
+
   public boolean addPart(Part newPart) {
     return this.parts.add(newPart);
+  }
+
+  public boolean removePart(UUID partId) {
+    Part removePart = this.getPartById(partId);
+    if (removePart != null)
+      return this.parts.remove(removePart);
+    else
+      return false;
   }
 
   public void listParts() {
