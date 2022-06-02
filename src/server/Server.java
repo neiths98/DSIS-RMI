@@ -1,19 +1,59 @@
 package server;
 
+import java.net.MalformedURLException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 import java.util.UUID;
 
 import parts.Part;
 import parts.PartRepository;
 
-public class Server {
+public class Server extends UnicastRemoteObject {
   private UUID id;
   private String name;
   private PartRepository partRepository;
 
-  public Server(String name) {
+  public Server(String name) throws RemoteException {
+    super();
     this.id = UUID.randomUUID();
     this.name = name;
     this.partRepository = new PartRepository(this.id);
+  }
+
+  public static void main(String[] args) throws RemoteException {
+    Scanner sc = new Scanner(System.in);
+
+    System.out.println("Digite o nome do servidor:");
+    Server server = new Server(formatServerName(sc.nextLine()));
+
+    sc.close();
+
+    try {
+      LocateRegistry.getRegistry("127.0.0.1", 1099); // localhost
+      Naming.bind(server.name, server);
+
+      System.out.printf("\nServidor %s levantou...\n", server.name);
+
+    } catch (Exception e) {
+      try {
+        System.out.println("\nCriando rmiregistry na porta 1099");
+        LocateRegistry.createRegistry(1099);
+        Naming.bind(server.name, server);
+
+        System.out.printf("\nServidor %s levantou...\n", server.name);
+
+      } catch (RemoteException | AlreadyBoundException | MalformedURLException error) {
+        error.printStackTrace();
+      }
+    }
+  }
+
+  private static String formatServerName(String serverName) {
+    return serverName.trim().replaceAll(" ", "-").toUpperCase();
   }
 
   public UUID getId() {
