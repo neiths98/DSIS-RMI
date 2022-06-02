@@ -9,10 +9,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 import java.util.UUID;
 
+import interfaces.AppInterface;
 import parts.Part;
 import parts.PartRepository;
 
-public class Server extends UnicastRemoteObject {
+public class Server extends UnicastRemoteObject implements AppInterface {
   private UUID id;
   private String name;
   private PartRepository partRepository;
@@ -68,15 +69,15 @@ public class Server extends UnicastRemoteObject {
     return this.partRepository;
   }
 
-  public boolean addPartToRepository(Part newPart) {
+  // ** Implementação de AppInterface ** 
+
+  @Override
+  public boolean addp(Part newPart) throws RemoteException {
     return this.partRepository.addPart(newPart);
   }
 
-  public boolean removePartFromRepository(UUID partId) {
-    return this.partRepository.removePart(partId);
-  }
-
-  public void listRepositoryParts() {
-    this.partRepository.listParts();
+  @Override
+  public String listp() throws RemoteException {
+    return this.partRepository.listParts();
   }
 }

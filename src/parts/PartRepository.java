@@ -47,14 +47,15 @@ public class PartRepository {
       return false;
   }
 
-  public void listParts() {
-    if (this.parts.isEmpty()) {
-      System.out.println("REPOSITORIO VAZIO");
-      return;
-    }
+  public String listParts() {
+    if (this.parts.isEmpty())
+      return "REPOSITORIO VAZIO";
 
-    System.out.printf("%-37s| %-37s| %-37s| %-37s\n","ID", "NOME", "DESCRICAO", "QTD SUB PARTES");
-    System.out.printf("%-37s+%-38s+%-38s+%-37s\n", "-".repeat(37), "-".repeat(38), "-".repeat(38), "-".repeat(37));
+    StringBuilder sBuilder = new StringBuilder();
+    
+    sBuilder.append(String.format("%-37s| %-37s| %-37s| %-37s\n","ID", "NOME", "DESCRICAO", "QTD SUB PARTES"));
+    sBuilder.append(String.format("%-37s+%-38s+%-38s+%-37s\n", "-".repeat(37), "-".repeat(38), "-".repeat(38), "-".repeat(37)));
+    
     for (Part part : this.parts) {
       int maxLength = 30;
       String partId = part.getId().toString();
@@ -65,9 +66,10 @@ public class PartRepository {
       if (partDescription.length() >= maxLength)
         partDescription = partDescription.substring(0, maxLength - 3) + "...";
 
-      System.out.printf("%-37s| %-37s| %-37s| %-37d\n", partId, partName, partDescription, subPartsQtd);
-      System.out.printf("%-37s+%-38s+%-38s+%-37s\n", "-".repeat(37), "-".repeat(38), "-".repeat(38), "-".repeat(37));
+      sBuilder.append(String.format("%-37s| %-37s| %-37s| %-37d\n", partId, partName, partDescription, subPartsQtd));
+      sBuilder.append(String.format("%-37s+%-38s+%-38s+%-37s\n", "-".repeat(37), "-".repeat(38), "-".repeat(38), "-".repeat(37)));
     }
-  }
 
+    return sBuilder.toString();
+  }
 }
