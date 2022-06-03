@@ -5,6 +5,7 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 import java.util.UUID;
@@ -18,6 +19,7 @@ public class Server extends UnicastRemoteObject implements AppInterface {
   private String name;
   private PartRepository partRepository;
   private Part currenPart;
+  private Registry registry;
 
   public Server(String name) throws RemoteException {
     super();
@@ -34,17 +36,24 @@ public class Server extends UnicastRemoteObject implements AppInterface {
 
     sc.close();
 
+    Registry registry;
+
     try {
-      LocateRegistry.getRegistry("127.0.0.1", 1099); // localhost
+      registry = LocateRegistry.getRegistry("127.0.0.1", 1099); // localhost
       Naming.bind(server.name, server);
+
+      server.setRegistry(registry);
 
       System.out.printf("\nServidor %s levantou...\n", server.name);
 
     } catch (Exception e) {
       try {
         System.out.println("\nCriando rmiregistry na porta 1099");
-        LocateRegistry.createRegistry(1099);
+
+        registry = LocateRegistry.createRegistry(1099);
         Naming.bind(server.name, server);
+
+        server.setRegistry(registry);
 
         System.out.printf("\nServidor %s levantou...\n", server.name);
 
@@ -68,6 +77,14 @@ public class Server extends UnicastRemoteObject implements AppInterface {
 
   public PartRepository getPartRepository() {
     return this.partRepository;
+  }
+
+  public Registry getRegistry() {
+    return this.registry;
+  }
+
+  public void setRegistry(Registry registry) {
+    this.registry = registry;
   }
 
   // ** Implementação de AppInterface ** 
