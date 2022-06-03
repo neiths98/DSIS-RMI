@@ -26,10 +26,10 @@ public class PartRepository {
     return this.parts;
   }
 
-  private Part getPartById(UUID partId) {
+  public Part getPartById(UUID partId) {
     for (Part p : this.parts) {
       UUID pId = p.getId();
-      if (pId == partId)
+      if (pId.equals(partId))
         return p;
     }
     return null;
@@ -55,7 +55,7 @@ public class PartRepository {
     
     sBuilder.append(String.format("%-37s| %-37s| %-37s| %-37s\n","ID", "NOME", "DESCRICAO", "QTD SUB PARTES"));
     sBuilder.append(String.format("%-37s+%-38s+%-38s+%-37s\n", "-".repeat(37), "-".repeat(38), "-".repeat(38), "-".repeat(37)));
-    
+
     for (Part part : this.parts) {
       int maxLength = 30;
       String partId = part.getId().toString();
