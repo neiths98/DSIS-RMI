@@ -2,6 +2,7 @@ package interfaces;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.UUID;
 
 import parts.Part;
 
@@ -12,5 +13,8 @@ public interface AppInterface extends Remote {
 
   // lista peças do servidor corrente
   String listp() throws RemoteException;
+
+  // busca peca e vira peca corrente
+  Part getp(UUID id) throws RemoteException;
 
 }

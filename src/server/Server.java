@@ -17,6 +17,7 @@ public class Server extends UnicastRemoteObject implements AppInterface {
   private UUID id;
   private String name;
   private PartRepository partRepository;
+  private Part currenPart;
 
   public Server(String name) throws RemoteException {
     super();
@@ -79,5 +80,12 @@ public class Server extends UnicastRemoteObject implements AppInterface {
   @Override
   public String listp() throws RemoteException {
     return this.partRepository.listParts();
+  }
+
+  @Override
+  public Part getp(UUID id) throws RemoteException {
+    this.currenPart = this.partRepository.getPartById(id);
+
+    return this.currenPart;
   }
 }
