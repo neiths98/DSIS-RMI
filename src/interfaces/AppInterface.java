@@ -8,6 +8,9 @@ import parts.Part;
 
 public interface AppInterface extends Remote {
 
+  // lista servidores ativos
+  String lists() throws RemoteException;
+
   // adiciona nova peça ao repositorio corrente
   boolean addp(Part newPart) throws RemoteException;
 

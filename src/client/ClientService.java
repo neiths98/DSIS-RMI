@@ -38,10 +38,15 @@ public class ClientService {
   public void listCommands() {
     System.out.println("Possiveis comandos: ");
     System.out.println("help");       // lista comandos
+    System.out.println("lists");      // lista servidores
     System.out.println("addp");       // adiciona uma Pecas ao repositorio
     System.out.println("getp");       // busca peca e vira peca corrente
     System.out.println("listp");      // lista pecas do repositorio
     System.out.println("quit");       // encerra a execucao do cliente
+  }
+
+  public void lists() throws RemoteException {
+    System.out.println(this.stub.lists());
   }
 
   public boolean addp() throws RemoteException {

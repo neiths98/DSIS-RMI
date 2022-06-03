@@ -90,6 +90,19 @@ public class Server extends UnicastRemoteObject implements AppInterface {
   // ** Implementação de AppInterface ** 
 
   @Override
+  public String lists() throws RemoteException {
+    StringBuilder sBuilder = new StringBuilder();
+
+    String[] servers = this.registry.list();
+
+    for (String s : servers) {
+      sBuilder.append(s + "\n");
+    }
+
+    return sBuilder.toString();
+  }
+
+  @Override
   public boolean addp(Part newPart) throws RemoteException {
     return this.partRepository.addPart(newPart);
   }
