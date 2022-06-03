@@ -15,10 +15,37 @@ public class Client {
       String serverName = sc.nextLine().trim().replaceAll(" ", "-").toUpperCase();
 
       AppInterface stub = (AppInterface) Naming.lookup(serverName);
+      ClientService clientService = new ClientService(stub);
 
       System.out.printf("\nServidor %s: Conexão estabelecida com sucesso\n\n", serverName);
-      sc.close();
 
+      clientService.listCommands();
+      while (true) {
+        System.out.println("\nDigite um comando:");
+        String command = sc.nextLine();
+        System.out.println();
+
+        switch (command) {
+          case "addp":
+            clientService.addp();
+            break;
+          case "listp":
+            clientService.listp();
+            break;
+          case "help":
+            clientService.listCommands();
+            break;
+          case "quit":
+            sc.close();
+            System.exit(0);
+          case "":
+            break;
+          default:
+            System.err.println("Comando nao encontrado: '" + command + "'.");
+            break;
+        }
+        System.out.println();
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
