@@ -13,6 +13,7 @@ import java.util.UUID;
 import interfaces.AppInterface;
 import parts.Part;
 import parts.PartRepository;
+import utils.Utils;
 
 public class Server extends UnicastRemoteObject implements AppInterface {
   private UUID id;
@@ -32,7 +33,7 @@ public class Server extends UnicastRemoteObject implements AppInterface {
     Scanner sc = new Scanner(System.in);
 
     System.out.println("Digite o nome do servidor:");
-    Server server = new Server(formatServerName(sc.nextLine()));
+    Server server = new Server(Utils.formatServerName(sc.nextLine()));
 
     sc.close();
 
@@ -61,10 +62,6 @@ public class Server extends UnicastRemoteObject implements AppInterface {
         error.printStackTrace();
       }
     }
-  }
-
-  private static String formatServerName(String serverName) {
-    return serverName.trim().replaceAll(" ", "-").toUpperCase();
   }
 
   public UUID getId() {

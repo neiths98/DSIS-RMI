@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import interfaces.AppInterface;
 import parts.Part;
+import utils.Utils;
 
 public class ClientService {
 
@@ -16,15 +17,6 @@ public class ClientService {
     this.stub = stub;
   }
 
-  private boolean isUUID(String id) {
-    try {
-      UUID.fromString(id);
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
-    return true;
-  }
-  
   private Part createPart() {
     System.out.println("Digite o nome da peça");
     String name = this.sc.nextLine();
@@ -63,7 +55,7 @@ public class ClientService {
     String inputId = sc.nextLine();
 
     System.out.println();
-    if (!isUUID(inputId)) {
+    if (!Utils.isUUID(inputId)) {
       System.out.println("ID está em formato inválido");
       return;
     }

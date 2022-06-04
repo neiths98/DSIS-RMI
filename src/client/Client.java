@@ -4,6 +4,7 @@ import java.rmi.Naming;
 import java.util.Scanner;
 
 import interfaces.AppInterface;
+import utils.Utils;
 
 public class Client {
 
@@ -12,7 +13,7 @@ public class Client {
       Scanner sc = new Scanner(System.in);
 
       System.out.println("Digite o nome do servidor que deseja se conectar");
-      String serverName = sc.nextLine().trim().replaceAll(" ", "-").toUpperCase();
+      String serverName = Utils.formatServerName(sc.nextLine());
 
       AppInterface stub = (AppInterface) Naming.lookup(serverName);
       ClientService clientService = new ClientService(stub);
