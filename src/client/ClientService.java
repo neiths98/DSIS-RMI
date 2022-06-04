@@ -1,5 +1,8 @@
 package client;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 import java.util.UUID;
@@ -30,11 +33,23 @@ public class ClientService {
   public void listCommands() {
     System.out.println("Possiveis comandos: ");
     System.out.println("help");       // lista comandos
+    System.out.println("bind");       // seleciona um servidor
     System.out.println("lists");      // lista servidores
     System.out.println("addp");       // adiciona uma Pecas ao repositorio
     System.out.println("getp");       // busca peca e vira peca corrente
     System.out.println("listp");      // lista pecas do repositorio
     System.out.println("quit");       // encerra a execucao do cliente
+  }
+
+  public void bind() throws RemoteException {
+    System.out.println("Digite o nome do servidor que deseja selecionar:");
+    try {
+      AppInterface newStub = (AppInterface) Naming.lookup(Utils.formatServerName(sc.nextLine()));
+      this.stub = newStub;
+      System.out.println("\nServidor selecionado com sucesso");
+    } catch (MalformedURLException | NotBoundException e) {
+      System.out.println("\nErro ao selecionar servidor");      
+    }
   }
 
   public void lists() throws RemoteException {
