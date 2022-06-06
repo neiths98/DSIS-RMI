@@ -37,6 +37,7 @@ public class ClientService {
     System.out.println("lists");      // lista servidores
     System.out.println("addp");       // adiciona uma Pecas ao repositorio
     System.out.println("getp");       // busca peca e vira peca corrente
+    System.out.println("showp");      // lista atributos da peca corrente
     System.out.println("listp");      // lista pecas do repositorio
     System.out.println("quit");       // encerra a execucao do cliente
   }
@@ -84,5 +85,9 @@ public class ClientService {
       System.out.printf("Peça '%s' selecionada\n", part.getName());
     else
       System.out.println("Peça nao encontrada");
+  }
+
+  public void showp() throws RemoteException {
+    System.out.println(this.stub.showp());
   }
 }

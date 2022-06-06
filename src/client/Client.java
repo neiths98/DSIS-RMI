@@ -36,6 +36,9 @@ public class Client {
           case "getp":
             clientService.getp();
             break;
+          case "showp":
+            clientService.showp();
+            break;
           case "bind":
             clientService.bind();
             break;

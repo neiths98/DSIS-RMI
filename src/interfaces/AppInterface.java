@@ -20,4 +20,7 @@ public interface AppInterface extends Remote {
   // busca peca e vira peca corrente
   Part getp(UUID id) throws RemoteException;
 
+  // lista atributos da peca selecionada
+  String showp() throws RemoteException;
+
 }

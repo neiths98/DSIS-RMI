@@ -13,6 +13,7 @@ import java.util.UUID;
 import interfaces.AppInterface;
 import parts.Part;
 import parts.PartRepository;
+import parts.SubPart;
 import utils.Utils;
 
 public class Server extends UnicastRemoteObject implements AppInterface {
@@ -115,4 +116,33 @@ public class Server extends UnicastRemoteObject implements AppInterface {
 
     return this.currenPart;
   }
+
+  @Override
+  public String showp() throws RemoteException {
+    StringBuilder sBuilder = new StringBuilder();
+    if (this.currenPart == null)
+      return "Nenhuma peca foi selecionada";
+
+    sBuilder.append(String.format("ATRIBUTOS DA PECA '%s':\n\n", this.currenPart.getName().toUpperCase()));
+    sBuilder.append(String.format("ID:                %s\n", this.currenPart.getId().toString()));
+    sBuilder.append(String.format("NOME:              %s\n", this.currenPart.getName()));
+    sBuilder.append(String.format("DESCRICAO:         %s\n", this.currenPart.getDescription()));
+    sBuilder.append(String.format("QTD DE SUBPECAS:   %d\n", this.currenPart.getSubParts().size()));
+
+    if (this.currenPart.getSubParts().size() == 0)
+      return sBuilder.toString();
+
+    sBuilder.append("LISTA DE SUBPECAS:\n");
+    int i = 1;
+    for (SubPart subPart : this.currenPart.getSubParts()) {
+      sBuilder.append(String.format("\nSUBPECA %d:\n\n", i));
+      sBuilder.append(String.format("ID:              %s\n", subPart.getPart().getId().toString()));
+      sBuilder.append(String.format("NOME:            %s\n", subPart.getPart().getName()));
+      sBuilder.append(String.format("DESCRICAO:       %s\n", subPart.getPart().getDescription()));
+      i++;
+    }
+
+    return sBuilder.toString();
+  }
+
 }
