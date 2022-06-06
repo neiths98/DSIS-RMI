@@ -1,3 +1,5 @@
+DSID-RMI
+
 Como compilar o programa
 
 javac -d ./bin/ ./src/client/*.java ./src/interfaces/*.java ./src/parts/*.java ./src/server/*.java ./src/utils/*.java
