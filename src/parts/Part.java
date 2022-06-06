@@ -1,9 +1,10 @@
 package parts;
 
+import java.io.Serializable;
 import java.util.UUID;
 import java.util.Vector;
 
-public class Part {
+public class Part implements Serializable {
   private UUID id;
   private String name;
   private String description;
