@@ -17,6 +17,9 @@ public interface AppInterface extends Remote {
   // adiciona a peca corrente a lista de subpecas corrente (a lista de subpecas corrente eh referente a ultima peca adicionada)
   boolean addsubpart(int quant) throws RemoteException;
 
+  // esvazia lista de sub-pecas
+  void clearlist() throws RemoteException;
+
   // lista peças do servidor corrente
   String listp() throws RemoteException;
 

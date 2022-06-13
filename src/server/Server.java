@@ -118,6 +118,11 @@ public class Server extends UnicastRemoteObject implements AppInterface {
   }
 
   @Override
+  public void clearlist() throws RemoteException {
+    this.currentSubParts.clear();
+  }
+
+  @Override
   public String listp() throws RemoteException {
     return this.partRepository.listParts();
   }

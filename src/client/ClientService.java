@@ -37,6 +37,7 @@ public class ClientService {
     System.out.println("lists");      // lista servidores
     System.out.println("addp");       // adiciona uma Pecas ao repositorio
     System.out.println("addsubpart"); // adicionar a peca corrente a lista de subpecas
+    System.out.println("clearlist");  // esvazia lista de sub-pecas
     System.out.println("getp");       // busca peca e vira peca corrente
     System.out.println("showp");      // lista atributos da peca corrente
     System.out.println("listp");      // lista pecas do repositorio
@@ -85,6 +86,11 @@ public class ClientService {
     }
 
     return this.stub.addsubpart(quant);
+  }
+
+  public void clearlist() throws RemoteException {
+    this.stub.clearlist();
+    System.out.println("Lista de sub-pecas esvaziada com sucesso");
   }
 
   public void listp() throws RemoteException {

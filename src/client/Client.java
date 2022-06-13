@@ -33,6 +33,9 @@ public class Client {
           case "addsubpart":
             clientService.addSubPart();
             break;
+          case "clearlist":
+            clientService.clearlist();
+            break;
           case "listp":
             clientService.listp();
             break;
