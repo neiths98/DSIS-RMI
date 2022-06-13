@@ -36,6 +36,7 @@ public class ClientService {
     System.out.println("bind");       // seleciona um servidor
     System.out.println("lists");      // lista servidores
     System.out.println("addp");       // adiciona uma Pecas ao repositorio
+    System.out.println("addsubpart"); // adicionar a peca corrente a lista de subpecas
     System.out.println("getp");       // busca peca e vira peca corrente
     System.out.println("showp");      // lista atributos da peca corrente
     System.out.println("listp");      // lista pecas do repositorio
@@ -60,6 +61,30 @@ public class ClientService {
   public boolean addp() throws RemoteException {
     Part newPart = createPart();
     return this.stub.addp(newPart);
+  }
+
+  public boolean addSubPart() throws RemoteException {
+    Part currentPart = this.stub.getcp();
+
+    if (currentPart == null) {
+      System.out.println("Nenhuma peca foi selecionada");
+      return false;
+    }
+
+    System.out.printf("Quantas pecas '%s' deseja adicionar a lista de sub-pecas?", currentPart.getName());
+    int quant;
+
+    System.out.println();
+    try {
+      String quantString = sc.nextLine();
+      quant = Integer.parseInt(quantString);
+      System.err.println("Sub-peca adicionada a lista com sucesso");
+    } catch (Exception e) {
+      System.out.println("Quantidade está em formato inválido");
+      return false;
+    }
+
+    return this.stub.addsubpart(quant);
   }
 
   public void listp() throws RemoteException {

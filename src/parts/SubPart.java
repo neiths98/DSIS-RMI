@@ -1,6 +1,8 @@
 package parts;
 
-public class SubPart {
+import java.io.Serializable;
+
+public class SubPart implements Serializable {
   private Part part;
   private int quant;
 

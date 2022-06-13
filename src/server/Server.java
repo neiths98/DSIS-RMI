@@ -9,6 +9,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.Vector;
 
 import interfaces.AppInterface;
 import parts.Part;
@@ -21,6 +22,7 @@ public class Server extends UnicastRemoteObject implements AppInterface {
   private String name;
   private PartRepository partRepository;
   private Part currenPart;
+  private Vector<SubPart> currentSubParts;
   private Registry registry;
 
   public Server(String name) throws RemoteException {
@@ -28,6 +30,7 @@ public class Server extends UnicastRemoteObject implements AppInterface {
     this.id = UUID.randomUUID();
     this.name = name;
     this.partRepository = new PartRepository(this.id);
+    this.currentSubParts = new Vector<SubPart>();
   }
 
   public static void main(String[] args) throws RemoteException {
@@ -102,7 +105,16 @@ public class Server extends UnicastRemoteObject implements AppInterface {
 
   @Override
   public boolean addp(Part newPart) throws RemoteException {
+    if (this.currentSubParts != null && this.currentSubParts.size() != 0)
+      newPart.addSubParts(this.currentSubParts);
+
     return this.partRepository.addPart(newPart);
+  }
+
+  @Override
+  public boolean addsubpart(int quant) throws RemoteException {
+    SubPart subPart = new SubPart(this.currenPart, quant);
+    return this.currentSubParts.add(subPart);
   }
 
   @Override
@@ -114,6 +126,11 @@ public class Server extends UnicastRemoteObject implements AppInterface {
   public Part getp(UUID id) throws RemoteException {
     this.currenPart = this.partRepository.getPartById(id);
 
+    return this.currenPart;
+  }
+
+  @Override
+  public Part getcp() throws RemoteException {
     return this.currenPart;
   }
 
@@ -139,6 +156,7 @@ public class Server extends UnicastRemoteObject implements AppInterface {
       sBuilder.append(String.format("ID:              %s\n", subPart.getPart().getId().toString()));
       sBuilder.append(String.format("NOME:            %s\n", subPart.getPart().getName()));
       sBuilder.append(String.format("DESCRICAO:       %s\n", subPart.getPart().getDescription()));
+      sBuilder.append(String.format("QUANTIDADE:      %s\n", subPart.getQuant()));
       i++;
     }
 

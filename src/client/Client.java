@@ -30,6 +30,9 @@ public class Client {
           case "addp":
             clientService.addp();
             break;
+          case "addsubpart":
+            clientService.addSubPart();
+            break;
           case "listp":
             clientService.listp();
             break;

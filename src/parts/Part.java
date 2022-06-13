@@ -39,4 +39,8 @@ public class Part implements Serializable {
   public Vector<SubPart> getSubParts() {
     return this.subParts;
   }
+
+  public boolean addSubParts(Vector<SubPart> subParts) {
+    return this.subParts.addAll(subParts);
+  }
 }
