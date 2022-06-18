@@ -39,12 +39,16 @@ public class Server extends UnicastRemoteObject implements AppInterface {
     System.out.println("Digite o nome do servidor:");
     Server server = new Server(Utils.formatServerName(sc.nextLine()));
 
+    
+    System.out.println("Inserir o domínio Registry:");
+    String domain = sc.nextLine();
+    
     sc.close();
 
     Registry registry;
 
     try {
-      registry = LocateRegistry.getRegistry("127.0.0.1", 1099); // localhost
+      registry = LocateRegistry.getRegistry(domain, 1099); //localhost 127.0.0.1
       Naming.bind(server.name, server);
 
       server.setRegistry(registry);
